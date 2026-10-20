@@ -145,6 +145,14 @@ if [ "$ENV" = "clifford" ]; then
     fi
 fi
 
+if [ "$ENV" = "mars" ] && [ -n "${MARS_MAX_GRID:-}" ]; then
+    EXTRA_CFLAGS+=(-DMARS_MAX_GRID="$MARS_MAX_GRID")
+fi
+
+if [ "$ENV" = "inventory" ] && [ -n "${INV_MAX_CAPACITY:-}" ]; then
+    EXTRA_CFLAGS+=(-DINV_MAX_CAPACITY="$INV_MAX_CAPACITY")
+fi
+
 if [ "$ENV" = "constellation" ]; then
     SRC_DIR="src"
     OUTPUT_NAME="seethestars"
@@ -205,7 +213,7 @@ else
 fi
 
 # src/ocean.cu compiles only this env's custom net (PUFFER_NETHACK, PUFFER_NMMO3, …).
-EXTRA_CFLAGS+=(-DPUFFER_${ENV^^})
+EXTRA_CFLAGS+=(-DPUFFER_$(echo "$ENV" | tr "[:lower:]" "[:upper:]"))  # tr, not ${ENV^^}: macOS ships bash 3.2
 
 case "$ENV" in
     osrs_*)

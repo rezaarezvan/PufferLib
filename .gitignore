@@ -197,3 +197,11 @@ resources/trailer/shots/*.mp4
 .refactor-snapshots/
 
 vendor/fast-nle/
+
+# Binaries build.sh writes to the repo root
+/puffer
+/advertising
+/drone
+/drone_fleet
+/inventory
+/mars
